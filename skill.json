@@ -1,0 +1,90 @@
+{
+  "name": "Jesse Crypto Trading Bot",
+  "display_name": "Jesse - Algorithmic Crypto Trading",
+  "description": "An advanced open-source crypto trading bot written in Python. Supports backtesting, live trading, strategy optimization, candle importing, Monte Carlo simulations, and 100+ technical indicators. Works with Binance, Bybit, Bitfinex and more.",
+  "version": "1.13.7",
+  "language": "python",
+  "type": "skill",
+  "category": "finance",
+  "tags": [
+    "crypto",
+    "trading",
+    "backtesting",
+    "algorithmic-trading",
+    "bitcoin",
+    "bot",
+    "quantitative-finance",
+    "trading-strategies",
+    "indicators",
+    "optimization"
+  ],
+  "capabilities": [
+    {
+      "id": "backtest",
+      "name": "Backtest Strategy",
+      "description": "Run historical backtests on custom trading strategies using OHLCV candle data",
+      "entrypoint": "jesse backtest"
+    },
+    {
+      "id": "import_candles",
+      "name": "Import Candle Data",
+      "description": "Fetch and store historical OHLCV price data from supported crypto exchanges",
+      "entrypoint": "jesse import-candles"
+    },
+    {
+      "id": "optimize",
+      "name": "Optimize Strategy",
+      "description": "Run hyperparameter optimization using genetic algorithms or grid search",
+      "entrypoint": "jesse optimize"
+    },
+    {
+      "id": "live_trade",
+      "name": "Live Trade",
+      "description": "Execute real-time trades via exchange APIs",
+      "entrypoint": "jesse run"
+    },
+    {
+      "id": "indicators",
+      "name": "Technical Indicators",
+      "description": "Access 100+ technical indicators: RSI, MACD, EMA, Bollinger Bands, ATR, etc.",
+      "module": "jesse.indicators"
+    },
+    {
+      "id": "monte_carlo",
+      "name": "Monte Carlo Simulation",
+      "description": "Stress-test strategies using randomized scenario simulations",
+      "module": "jesse.modes"
+    }
+  ],
+  "api": {
+    "type": "rest",
+    "base_url": "http://localhost:9001",
+    "framework": "FastAPI",
+    "routes_path": "jesse/routes/"
+  },
+  "repository": {
+    "owner": "sixtodlopez86-crypto",
+    "name": "jesse",
+    "url": "https://github.com/sixtodlopez86-crypto/jesse",
+    "forked_from": "jesse-ai/jesse",
+    "branch": "master"
+  },
+  "agents_doc": "AGENTS.md",
+  "readme": "README.md",
+  "license": "MIT",
+  "supported_exchanges": [
+    "Binance Spot",
+    "Binance Futures",
+    "Bybit Spot",
+    "Bybit Perpetual",
+    "Bitfinex",
+    "Coinbase"
+  ],
+  "tech_stack": {
+    "primary_language": "Python",
+    "api_framework": "FastAPI",
+    "orm": "keewee",
+    "math": "NumPy",
+    "performance_layer": "jesse-rust (Rust)"
+  }
+}
