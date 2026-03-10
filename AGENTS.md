@@ -129,5 +129,90 @@ This repository is the foundation of the Jesse ecosystem:
 - **laravel-jesse-trade** - Laravel project that contains the api1 backend of the jesse-trade website.
 - **go-jesse-trade/backend** - Go project that contains the api2 backend of the jesse-trade website.
 - **go-jesse-trade/frontend** - NuxtJS project that contains the frontend of the jesse-trade website.
-- **strategy-executor** - Go project that contains the strategy executor microservice used to execute strategies submitted by the users of the website.
+- **strategy-executor** - Go project that contains the strategy executor microservice used to execute strategies submitted by the users of the
+- 
+## Google Antigravity Skill Configuration
+
+This section enables Google AI Studio (Antigravity/Gemini) to recognize and use this repository as a **Skill**.
+
+### Skill Identity
+
+- **Skill Name**: Jesse Crypto Trading Bot
+- **Version**: 1.13.7
+- **Language**: Python
+- **Type**: Algorithmic Trading Framework
+- **Category**: Crypto / Finance / Backtesting
+
+### What This Skill Can Do
+
+This skill allows an AI agent to:
+
+1. **Backtest trading strategies** - Run historical simulations on OHLCV candle data
+2. **Import candle data** - Fetch historical price data from crypto exchanges (Binance, Bybit, etc.)
+3. **Optimize strategies** - Run hyperparameter optimization using genetic algorithms or grid search
+4. **Live trade** - Execute real-time trades via exchange APIs
+5. **Analyze indicators** - Access 100+ technical indicators (RSI, MACD, Bollinger Bands, EMA, etc.)
+6. **Run Monte Carlo simulations** - Stress-test strategies with randomized scenarios
+7. **Manage routes** - Define symbol/timeframe/strategy combinations
+8. **Generate performance reports** - Sharpe ratio, max drawdown, win rate, PnL, etc.
+
+### Entry Points for the Agent
+
+| Command | Description |
+|---|---|
+| `jesse backtest` | Run a backtest on a strategy |
+| `jesse import-candles` | Import OHLCV data from an exchange |
+| `jesse optimize` | Run strategy optimization |
+| `jesse run` | Start the live trading API server |
+
+### Key Modules the Agent Should Know
+
+- `jesse/strategies/` - Base class `Strategy` that all custom strategies extend
+- `jesse/indicators/` - All technical indicators available as functions
+- `jesse/modes/` - Backtest, import, optimize, live modes
+- `jesse/routes/` - FastAPI REST endpoints (server runs on port 9001)
+- `jesse/store/` - Global state management during sessions
+- `jesse/services/` - Utilities like logger, file IO, exchange connectors
+
+### How to Write a Strategy
+
+All strategies inherit from `jesse.strategies.Strategy` and must implement:
+
+```python
+from jesse.strategies import Strategy
+import jesse.indicators as ta
+
+class MyStrategy(Strategy):
+    def should_long(self) -> bool:
+        return ta.ema(self.candles, 9) > ta.ema(self.candles, 21)
+
+    def should_short(self) -> bool:
+        return ta.ema(self.candles, 9) < ta.ema(self.candles, 21)
+
+    def go_long(self):
+        self.buy = 1, self.price
+
+    def go_short(self):
+        self.sell = 1, self.price
+
+    def should_cancel_entry(self) -> bool:
+        return False
+```
+
+### Supported Exchanges
+
+- Binance Spot & Futures
+- Bybit Spot & Perpetual
+- Bitfinex
+- FTX (historical data only)
+- Coinbase
+
+### Agent Interaction Guidelines
+
+- Always use `jh.debug()` for logging, never `print()`
+- Never restart the server unless explicitly asked
+- Strategy files live in the `strategies/` folder of the **bot** project (not this repo)
+- This repo is the **framework** — the bot project imports and uses it
+- API server runs at `http://localhost:9001`
+- Database ORM is `keewee` (not SQLAlchemy)website.
 
